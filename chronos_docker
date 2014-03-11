@@ -268,10 +268,12 @@ def inner_ports(image):
         specs = config.get('PortSpecs', [])
         if specs and isinstance(specs, list):
             return [int(v.split(':')[-1]) for v in specs]
-    return [] # If all else fails...
+    return []  # If all else fails...
 
 
 def pull(image):
+    subprocess.check_call(['docker', 'pull', image])
+    refresh_docker_image_info(image)
 
 
 def pull_once(image):
